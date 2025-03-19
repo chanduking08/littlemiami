@@ -12,9 +12,9 @@
 function little_miami_enqueue_scripts() {
     wp_enqueue_style('little-miami-style', get_stylesheet_uri());
     //wp_enqueue_script('jquery');
-    wp_enqueue_script('little-miami-main', get_template_directory_uri() . '/js/main.js', array('jquery'), false, true);
     wp_enqueue_style('bootstrap-css', 'https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css');
     wp_enqueue_script('bootstrap-js', 'https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js', array('jquery'), null, true);
+    wp_enqueue_script('little-miami-main', get_template_directory_uri() . '/js/main.js', array('jquery'), false, true);
 }
 add_action('wp_enqueue_scripts', 'little_miami_enqueue_scripts');
 
@@ -33,6 +33,14 @@ function little_miami_theme_setup() {
         'name'          => __('Top Bar', 'little-miami'),
         'id'            => 'top-bar',
         'before_widget' => '<div class="top-bar-widget">',
+        'after_widget'  => '</div>',
+        'before_title'  => '<h4 class="screen-reader-text">',
+        'after_title'   => '</h4>'
+    ));
+    register_sidebar(array(
+        'name'          => __('Bottom Bar', 'little-miami'),
+        'id'            => 'bottom-bar',
+        'before_widget' => '<div class="bottom-bar-widget">',
         'after_widget'  => '</div>',
         'before_title'  => '<h4 class="screen-reader-text">',
         'after_title'   => '</h4>'
@@ -64,11 +72,33 @@ function little_miami_theme_setup() {
 }
 add_action('after_setup_theme', 'little_miami_theme_setup');
 
-// Include Theme Parts
-require get_template_directory() . '/inc/theme-sections.php';
-require get_template_directory() . '/inc/hero-section.php';
-require get_template_directory() . '/inc/two-column-section.php';
-require get_template_directory() . '/inc/video-section.php';
-require get_template_directory() . '/inc/copy-section.php';
-require get_template_directory() . '/inc/google-reviews.php';
+// Include nav Parts
 require_once get_template_directory() . '/inc/wp-bootstrap-navwalker.php';
+
+add_action('acf/init', 'register_custom_acf_blocks');
+function register_custom_acf_blocks() {
+    if (function_exists('acf_register_block_type')) {
+        acf_register_block_type([
+            'name'              => 'custom-section',
+            'title'             => __('Custom Section'),
+            'description'       => __('A custom section block with image/video and overlay text'),
+            'render_template'   => 'template-parts/blocks/custom-section.php',
+            'category'          => 'layout',
+            'icon'              => 'layout',
+            'keywords'          => ['custom', 'section', 'acf'],
+            'mode'              => 'edit',
+            'supports'          => ['align' => false],
+        ]);
+        acf_register_block_type([
+            'name'              => 'hero-carousel',
+            'title'             => __('Hero Carousel'),
+            'description'       => __('A Hero Carousel block with image/video and overlay text'),
+            'render_template'   => 'template-parts/blocks/hero-carousel.php',
+            'category'          => 'layout',
+            'icon'              => 'layout',
+            'keywords'          => ['custom', 'section', 'acf'],
+            'mode'              => 'edit',
+            'supports'          => ['align' => false],
+        ]);
+    }
+}
