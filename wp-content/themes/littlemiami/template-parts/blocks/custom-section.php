@@ -20,29 +20,32 @@ $columns = get_field('column');
         <div class="row g-2 justify-content-center">
             <?php foreach ($columns as $col): 
                 $bg_image = $col['background_image'];
+                $image_link = $col['image_link'];
                 $overlay_text = $col['overlay_text'];
                 $overlay_icon = $col['overlay_icon_class'];
                 $video = $col['video'];
                 $full_copy = $col['full_copy'];
             ?>
-                <div class="px-1 <?= esc_attr($column_class ?: 'col-md-4'); ?>">
+                <div class="px-2 <?= esc_attr($column_class ?: 'col-md-4'); ?>">
                     <?php if ($video): ?>
-                        <div class="ratio ratio-16x9 mb-md-5">
+                        <div class="ratio ratio-16x9 mb-lg-5">
                             <?= $video; ?>
                         </div>
                     <?php elseif ($bg_image): ?>
-                        <div class="position-relative" style="background-image: url('<?= esc_url($bg_image['url']); ?>'); background-size: cover; background-position: center; height: 368px;">
-                            <?php if ($overlay_text || $overlay_icon): ?>
-                                <div class="position-absolute top-0 start-0 w-100 h-100 d-flex flex-column justify-content-center text-center p-3 bg-gradient bg-opacity-50 text-white">
-                                    <?php if ($overlay_icon): ?>
-                                        <i class="fa <?= esc_attr($overlay_icon); ?> fs-2 mb-2"></i>
-                                    <?php endif; ?>
-                                    <?php if ($overlay_text): ?>
-                                        <h3><?= esc_html($overlay_text); ?></h3>
-                                    <?php endif; ?>
-                                </div>
-                            <?php endif; ?>
-                        </div>
+                        <a href="<?= esc_url($image_link); ?>" class="d-block text-decoration-none">
+                            <div class="position-relative" style="background-image: url('<?= esc_url($bg_image['url']); ?>'); background-size: cover; background-position: center; height: 368px;">
+                                <?php if ($overlay_text || $overlay_icon): ?>
+                                    <div class="position-absolute top-0 start-0 w-100 h-100 d-flex flex-column justify-content-center text-center p-3 bg-gradient bg-opacity-50 text-white">
+                                        <?php if ($overlay_icon): ?>
+                                            <i class="fa <?= esc_attr($overlay_icon); ?> fs-2 mb-2"></i>
+                                        <?php endif; ?>
+                                        <?php if ($overlay_text): ?>
+                                            <h3><?= esc_html($overlay_text); ?></h3>
+                                        <?php endif; ?>
+                                    </div>
+                                <?php endif; ?>
+                            </div>
+                        </a>
                     <?php endif; ?>
 
                     <?php if ($full_copy): ?>

@@ -6,21 +6,21 @@
             </div>
         </div>
     <?php endif; ?>
-    <div class="footer-widgets py-5 bg-dark">
+    <div class="footer-widgets pt-5 bg-dark">
         <div class="container">
             <div class="row">
                 <?php if ( is_active_sidebar( 'footer-col-1' ) ) : ?>
-                    <div class="footer-widget-area col-md-4 mb-5">
+                    <div class="footer-widget-area col-lg-4 mb-5 mb-lg-0">
                         <?php dynamic_sidebar( 'footer-col-1' ); ?>
                     </div>
                 <?php endif; ?>
                 <?php if ( is_active_sidebar( 'footer-col-2' ) ) : ?>
-                    <div class="footer-widget-area col-md-4 mb-5">
+                    <div class="footer-widget-area col-lg-4 mb-5 mb-lg-0">
                         <?php dynamic_sidebar( 'footer-col-2' ); ?>
                     </div>
                 <?php endif; ?>
                 <?php if ( is_active_sidebar( 'footer-col-3' ) ) : ?>
-                    <div class="footer-widget-area col-md-4 mb-5">
+                    <div class="footer-widget-area col-lg-4 mb-5 mb-lg-0">
                         <?php dynamic_sidebar( 'footer-col-3' ); ?>
                     </div>
                 <?php endif; ?>

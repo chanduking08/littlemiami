@@ -16,8 +16,8 @@
         </div>
     <?php endif; ?>
 
-    <nav class="navbar navbar-expand-lg navbar-dark bg-xl-dark z-3">
-        <div class="container">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-xl-dark z-3 container bg-transparent">
+        <div class="container d-flex align-items-center">
             <!-- Site Logo -->
             <?php 
             if (has_custom_logo()) {
@@ -27,32 +27,64 @@
             }
             ?>
 
-            <!-- Hamburger Button -->
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <!-- Hamburger Button: visible only below 992px, aligned right -->
+            <button class="navbar-toggler p-3 d-lg-none ms-auto" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasMenu" aria-controls="offcanvasMenu" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
+        </div>
 
+        <div class="container">
             <div class="row">
-                <div class="text-end">
-                    <p class="mb-0 text-white">TACO TRAILER<span class="separator position-relative px-1">.</span>OPEN<span class="px-2">|</span>ROOFTOP BAR<span class="separator position-relative px-1">.</span>OPEN</p>
+                <div class="text-lg-end open-status text-center px-0">
+                    <p class="mb-0 text-white content">TACO TRAILER<span class="separator position-relative px-1">.</span>OPEN<span class="px-2">|</span>ROOFTOP BAR<span class="separator position-relative px-1">.</span>OPEN</p>
                 </div>
-                <!-- Navigation Menu -->
-                <div class="collapse navbar-collapse" id="navbarNav">
+
+                <!-- Desktop Menu -->
+                <div class="desktop-menu d-none d-lg-flex px-0">
                     <?php
                     wp_nav_menu(array(
                         'theme_location' => 'primary',
-                        'depth'          => 2, // Supports dropdowns
+                        'depth'          => 2,
                         'container'      => false,
                         'menu_class'     => 'navbar-nav ms-auto',
                         'fallback_cb'    => 'WP_Bootstrap_Navwalker::fallback',
                         'walker'         => new WP_Bootstrap_Navwalker()
                     ));
                     ?>
-                    <a href="https://maps.app.goo.gl/9NN1eu711gu4hdMj7/" target="_blank"><i class="fa fa-map-marker text-dark p-1 mx-1"></i></a>
-                    <a href="https://www.facebook.com/littlemiamibrewing/" target="_blank"><i class="fa fa-facebook text-dark p-1 mx-1"></i></a>
-                    <a href="https://twitter.com/littlemiamibrew/" target="_blank"><i class="fa fa-twitter text-dark p-1 mx-1"></i></a>
-                    <a href="https://www.instagram.com/littlemiamibrew/" target="_blank"><i class="fa fa-instagram text-dark p-1 mx-1"></i></a>
+                    <div class="social-icons d-flex mt-2">
+                        <a href="https://maps.app.goo.gl/9NN1eu711gu4hdMj7/" target="_blank"><i class="fa fa-map-marker text-dark p-1 mx-1"></i></a>
+                        <a href="https://www.facebook.com/littlemiamibrewing/" target="_blank"><i class="fa fa-facebook text-dark p-1 mx-1"></i></a>
+                        <a href="https://twitter.com/littlemiamibrew/" target="_blank"><i class="fa fa-twitter text-dark p-1 mx-1"></i></a>
+                        <a href="https://www.instagram.com/littlemiamibrew/" target="_blank"><i class="fa fa-instagram text-dark p-1 ml-1"></i></a>
+                    </div>
                 </div>
             </div>
         </div>
     </nav>
+
+
+    <!-- Offcanvas Sidebar: visible only for mobile/tablet -->
+    <div class="offcanvas offcanvas-start d-lg-none" tabindex="-1" id="offcanvasMenu" aria-labelledby="offcanvasMenuLabel">
+        <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="offcanvasMenuLabel">Menu</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body">
+            <?php
+            wp_nav_menu(array(
+                'theme_location' => 'primary',
+                'depth'          => 2,
+                'container'      => false,
+                'menu_class'     => 'navbar-nav',
+                'fallback_cb'    => 'WP_Bootstrap_Navwalker::fallback',
+                'walker'         => new WP_Bootstrap_Navwalker()
+            ));
+            ?>
+            <div class="social-icons mt-4">
+                <a href="https://maps.app.goo.gl/9NN1eu711gu4hdMj7/" target="_blank"><i class="fa fa-map-marker text-dark p-1 mx-1"></i></a>
+                <a href="https://www.facebook.com/littlemiamibrewing/" target="_blank"><i class="fa fa-facebook text-dark p-1 mx-1"></i></a>
+                <a href="https://twitter.com/littlemiamibrew/" target="_blank"><i class="fa fa-twitter text-dark p-1 mx-1"></i></a>
+                <a href="https://www.instagram.com/littlemiamibrew/" target="_blank"><i class="fa fa-instagram text-dark p-1 mx-1"></i></a>
+            </div>
+        </div>
+    </div>
